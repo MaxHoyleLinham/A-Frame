@@ -1,42 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>A-Frame Motion Capture Development</title>
+    <head>
+    <meta charset="UFT-8">  
+
+    <title>A-Frame Motion Capture</title>
+
     <meta name="description" content="Motion Capture Development – A-Frame">
-    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+        <!--Scripts-->
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://rawgit.com/dmarcos/aframe-motion-capture/master/dist/aframe-motion-capture-components.min.js"></script>
     <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.3/dist/aframe-controller-cursor-component.min.js"></script>
     <script src="components/ground.js"></script>
     <script src="shaders/skyGradient.js"></script>
-  </head>
-  <body>
-    <a-scene fog="color: #bc483e; near: 0; far: 65;" avatar-recorder avatar-replayer="src: https://cdn.glitch.com/d01b0eb7-9be3-4d2e-aaac-8ff0c728d7ba%2Fplayer-recording-A-Frame%20Motion%20Capture%20Development-1490397430529.json?1490401010899; loop: true; spectatorMode: false">
-      <a-assets>
-        <a-mixin id="cube"
-                 geometry="primitive: box; height: 0.30; width: 0.30; depth: 0.30"
-                 material="color: #EF2D5E;"></a-mixin>
-      </a-assets>
-      
-      <!-- Hands -->
-      <a-entity id="left" hand-controls="left"></a-entity>
-      <a-entity id="right" hand-controls="right"></a-entity>
-
-      <!-- A-Frame cubes -->
-      <a-entity id="cubes" position="0 0 -1.0">
-        <a-entity mixin="cube" position="0.5 1.5 0"></a-entity>
-        <a-entity mixin="cube" position="0 1.5 0"></a-entity>
-        <a-entity mixin="cube" position="-0.5 1.5 0"></a-entity>
-      </a-entity>
-      
-      <!-- Environment -->
-      <a-entity id="sky"
-                geometry="primitive: sphere; radius: 65;"
-                material="shader: skyGradient; colorTop: #353449; colorBottom: #BC483E; side: back"></a-entity>
-     <a-entity ground></a-entity>
-     <a-entity light="type: point; color: #f4f4f4; intensity: 0.2; distance: 0" position="8 10 18"></a-entity>
-     <a-entity light="type: point; color: #f4f4f4; intensity: 0.6; distance: 0" position="-8 10 -18"></a-entity>
-     <a-entity light="type: ambient; color: #f4f4f4; intensity: 0.4;" position="-8 10 -18"></a-entity>
-    </a-scene>
-  </body>
+    <script>
+        AFRAME.registerComponent('school-playground', {
+          init: function () {
+            // Solution for Handling Events.
+            var sceneEl = document.querySelector('a-scene'); 
+            var boxEl = sceneEl.querySelector('a-box')
+            
+            boxEl.addEventListener('foo', function () {
+              boxEl.setAttribute('color', 'blue');  
+            });
+            boxEl.emit('foo');
+          }
+        });
+      </script>
+      <script>
+      AFRAME.registerComponent('thumbstick-logging',{
+        init: function () {
+          this.el.addEventListener('thumbstickmoved', this.logThumbstick);
+        },
+        logThumbstick: function (evt) {
+          if (evt.detail.y > 0.95) { console.log("DOWN"); }
+          if (evt.detail.y < -0.95) { console.log("UP"); }
+          if (evt.detail.x < -0.95) { console.log("LEFT"); }
+          if (evt.detail.x > 0.95) { console.log("RIGHT"); }
+        }
+      });
+      </script>
+    </head>
+    <body>
+        <a-scene>
+            <a-assets>
+        <!--Ground Texture-->
+                <img id="groundTexture" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png"> 
+                <img id="background" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgucvvXEuf5TDr0YlwOG7dks4gadTrKfLOZU7HRjdaGG641AspQK6GKi3MisbQocFLSvk&usqp=CAU">
+            </a-assets>
+        <!--Shapes-->
+            <a-entity id="box" geometry="primitive: box; width: 1; depth: 1; height: 1" position="-3 1 -4.5" rotation="29 74 0" material="color: #4CC3D9"></a-entity>
+            <a-entity id="sphere" geometry="primitive: sphere; radius: 2" position=" -3 2 -7" material="color: #EF2D5E"></a-entity>
+            <a-entity id="torus" geometry="primitive: torus; width: 2; depth: 1; height: 2" position="-3 4 -6.7" material="color: blue"></a-entity>
+            <a-entity id="torus-knot" geometry="primitive: torus-knot; width: 1; depth: 1; height: 1" position="--3 0 -3" material="color: purple"></a-entity>
+            <a-entity id="dodecahedron" geometry="primitive: dodecahedron; width: 2; depth: 2; height: 2" position="-3 1 0" material="color: cyan"></a-entity>
+            <a-entity id="cylinder" geometry="primitive: cylinder; width: 2; depth: 3; height: 2" position="-3 1.5 -2.5" rotation="90 0 0" material="color: yellow"></a-entity>
+            <a-entity id="plane" geometry="primitive: plane; width: 10000; height: 10000" 
+            material="color: #333; src: #groundTexture; repeat: 10000 10000; transparent: true; metalness: 0.6; roughness: 0.4" rotation="-90 0 0"></a-entity>
+        <!--Text-->
+            <a-text value="These are my shapes" color="red" font-type="bold" position="-3 3 -3" radius="2" rotation="0 90 0"></a-text>
+        <!--Lighting-->
+            <a-entity id="lightSphere" position=" 0 5 0" radius="2"></a-entity>
+        <!--Hand Controls-->
+            <a-entity id="left" hand-controls="left" controller-cursor></a-entity>
+            <a-entity id="right" hand-controls="right" controller-cursor></a-entity>
+            <a-entity oculus-touch-controls="hand: left" thumbstick-logging></a-entity>
+            <a-entity oculus-touch-controls="hand: right" thumbstick-logging></a-entity>
+        </a-scene>
+    </body>
 </html>
