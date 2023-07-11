@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UFT-8">  
+
+    <title>A-Frame Motion Capture</title>
+
+    <meta name="description" content="Motion Capture Development – A-Frame">
+        <!--Scripts-->
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://rawgit.com/dmarcos/aframe-motion-capture/master/dist/aframe-motion-capture-components.min.js"></script>
+    <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.3/dist/aframe-controller-cursor-component.min.js"></script>
+    <script> src="oculus-touch-contorls.js"</script>
+    </head>
+    <body>
+        <a-scene>
+            <a-assets>
+        <!--Ground Texture-->
+                <img id="groundTexture" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png"> 
+                <img id="background" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgucvvXEuf5TDr0YlwOG7dks4gadTrKfLOZU7HRjdaGG641AspQK6GKi3MisbQocFLSvk&usqp=CAU">
+            </a-assets>
+        <!--Shapes-->
+            <a-entity id="box" geometry="primitive: box; width: 1; depth: 1; height: 1" position="-3 1 -4.5" rotation="29 74 0" material="color: #4CC3D9"></a-entity>
+            <a-entity id="sphere" geometry="primitive: sphere; radius: 2" position=" -3 2 -7" material="color: #EF2D5E"></a-entity>
+            <a-entity id="torus" geometry="primitive: torus; width: 2; depth: 1; height: 2" position="-3 4 -6.7" material="color: blue"></a-entity>
+            <a-entity id="torus-knot" geometry="primitive: torus-knot; width: 1; depth: 1; height: 1" position="--3 0 -3" material="color: purple"></a-entity>
+            <a-entity id="dodecahedron" geometry="primitive: dodecahedron; width: 2; depth: 2; height: 2" position="-3 1 0" material="color: cyan"></a-entity>
+            <a-entity id="cylinder" geometry="primitive: cylinder; width: 2; depth: 3; height: 2" position="-3 1.5 -2.5" rotation="90 0 0" material="color: yellow"></a-entity>
+            <a-entity id="plane" geometry="primitive: plane; width: 10000; height: 10000" 
+            material="color: #333; src: #groundTexture; repeat: 10000 10000; transparent: true; metalness: 0.6; roughness: 0.4" rotation="-90 0 0"></a-entity>
+        <!--Text-->
+            <a-text value="These are my shapes" color="red" font-type="bold" position="-3 3 -3" radius="2" rotation="0 90 0"></a-text>
+        <!--Lighting-->
+            <a-entity id="lightSphere" position=" 0 5 0" radius="2"></a-entity>
+        <!--Hand Controls-->
+            <a-entity id="left" hand-controls="left" controller-cursor></a-entity>
+            <a-entity id="right" hand-controls="right" controller-cursor></a-entity>
+            <a-entity oculus-touch-controls="hand: left" thumbstick-logging></a-entity>
+            <a-entity oculus-touch-controls="hand: right" thumbstick-logging></a-entity>
+        </a-scene>
+    </body>
+</html>
