@@ -12,19 +12,11 @@
     <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.3/dist/aframe-controller-cursor-component.min.js"></script>
     <script src="components/ground.js"></script>
     <script src="shaders/skyGradient.js"></script>
-    <script>
-      AFRAME.registerComponent('controller-event-handler', {
-        init: function () {
-          var el = this.el;
-          el.addEventListener('mouseenter', function () {
-            el.setAttribute('material', 'color', '#24CAFF');  
-          });
-          el.addEventListener('mouseleave', function () {
-            el.setAttribute('material', 'color', '#EF2D5E');  
-          });
-        }
-      });
-    </script>
+    <script src="oculus-touch-controller-left.mtl"></script>
+    <script src="oculus-touch-controller-left.obj"></script>
+    <script src="oculus-touch-controller-right.mtl"></script>
+    <script src="oculus-touch-controller-right.obj"></script>
+    <script src="Movement.py"></script>
     </head>
     <body>
         <a-scene>
