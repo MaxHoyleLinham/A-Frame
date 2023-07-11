@@ -10,7 +10,21 @@
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://rawgit.com/dmarcos/aframe-motion-capture/master/dist/aframe-motion-capture-components.min.js"></script>
     <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.3/dist/aframe-controller-cursor-component.min.js"></script>
-    <script> src="oculus-touch-contorls.js"</script>
+    <script src="components/ground.js"></script>
+    <script src="shaders/skyGradient.js"></script>
+    <script>
+      AFRAME.registerComponent('controller-event-handler', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('mouseenter', function () {
+            el.setAttribute('material', 'color', '#24CAFF');  
+          });
+          el.addEventListener('mouseleave', function () {
+            el.setAttribute('material', 'color', '#EF2D5E');  
+          });
+        }
+      });
+    </script>
     </head>
     <body>
         <a-scene>
@@ -37,17 +51,6 @@
             <a-entity id="right" hand-controls="right" controller-cursor></a-entity>
             <a-entity oculus-touch-controls="hand: left" thumbstick-logging></a-entity>
             <a-entity oculus-touch-controls="hand: right" thumbstick-logging></a-entity>
-            <script AFRAME.registerComponent('thumbstick-logging',{
-                init: function () {
-                  this.el.addEventListener('thumbstickmoved', this.logThumbstick);
-                },
-                logThumbstick: function (evt) {
-                  if (evt.detail.y &gt 0.95) { console.log("DOWN"); }
-                  if (evt.detail.y < -0.95) { console.log("UP"); }
-                  if (evt.detail.x < -0.95) { console.log("LEFT"); }
-                  if (evt.detail.x &gt 0.95) { console.log("RIGHT"); }
-                }
-              });> </script>
         </a-scene>
     </body>
 </html>
